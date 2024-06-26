@@ -1,0 +1,22 @@
+<!-- the following line is the ejs-mate syntax that will pass all of this code to the boilerplate template -->
+<% layout('layouts/boilerplate')%>
+    <h1>Edit Campground</h1>
+    <!-- we want the id in here of the current campground we are editing '_id'-->
+    <!-- ?_method=PUT is the method override so that we can do a fake PUT-->
+    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <!-- under name, we are grouping things under campground -->
+            <!-- when the data is sent via POST request to the express app server, everything in the req.body will be stored under campground -->
+            <!-- 'value' is the pre-populated title (whichever campground was showing when edit was clicked) -->
+            <input type="text" id="title" name="campground[title]" value="<%= campground.title %>">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <!-- under name, we are grouping things under campground -->
+            <!-- when the data is sent via POST request to the express app server, everything in the req.body will be stored under campground -->
+            <input type="text" id="location" name="campground[location]" value="<%= campground.location %>">
+        </div>
+        <button>Update Campground</button>
+    </form>
+    <a href="/campgrounds/"<%= campground._id %>>Back To Campground</a>

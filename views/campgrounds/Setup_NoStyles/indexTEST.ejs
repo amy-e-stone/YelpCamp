@@ -1,0 +1,14 @@
+
+    <!-- the following line is the ejs-mate syntax that will pass all of this code to the boilerplate template -->
+    <% layout('layouts/boilerplate')%>
+    <h1>All Campgrounds</h1>
+    <div>
+        <a href="campgrounds/new">Add Campground</a>
+    </div>
+    <!-- we will put a ul in here and iterate over all of the campgrounds and display the title for each one -->
+    <ul>
+        <% for (let campground of campgrounds) { %>
+            <!-- here we have an anchor (making the titles links) following the '/campgrounds/:id' format from app.js -->
+            <li><a href="/campgrounds/<%= campground._id %>"><%= campground.title %></a></li>
+            <% }%>
+    </ul>

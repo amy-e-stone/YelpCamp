@@ -1,0 +1,5 @@
+# node_modules is useless to push up to Heroku because it will re-install all of the packages it needs,
+# so it will have it's own node_modules folder. The .env file is just for development purposes
+
+node_modules
+.env

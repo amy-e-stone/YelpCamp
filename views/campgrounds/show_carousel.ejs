@@ -1,0 +1,129 @@
+<!-- the following line is the ejs-mate syntax that will pass all of this code to the boilerplate template -->
+<% layout('layouts/boilerplate')%>
+  <link rel="stylesheet" href="/stylesheets/stars.css">
+
+  <div class="row">
+    <div class="col-6">
+      <!-- ********************* FIX ME, carousel does not work, check bootstrap javascript!!! ********************* -->
+      <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% campground.images.forEach((img, i)=> { %>
+            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+              <img src="<%= img.url %>" class="d-block w-100" alt="">
+            </div>
+            <% }) %>
+        </div>
+        <% if(campground.images.length> 1) { %>
+          <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <% } %>
+      </div>
+    </div>
+  </div>
+  <!-- ********************* FIX ME, carousel does not work, check bootstrap javascript!!! ********************* -->
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= campground.title %>
+      </h5>
+      <p class="card-text">
+        <%= campground.description %>
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-secondary">
+        <%= campground.location %>
+      </li>
+      <li class="list-group-item">Submitted by <%= campground.author.username %>
+      </li>
+      <li class="list-group-item">$<%= campground.price %>/night</li>
+    </ul>
+    <!-- Hide the card body if the user did not create the campground -->
+    <!-- If current user exists (somone is logged in) AND the following is true ... -->
+    <!-- If this one campground's author is the same as the current user's id, then render the edit and delete buttons -->
+    <% if(currentUser && campground.author.equals(currentUser._id)) {%>
+      <div class="card-body">
+        <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+        <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+      <% } %>
+        <div class="card-footer text-secondary">
+          2 days ago
+        </div>
+  </div>
+  </div>
+  <div class="col-6">
+    <!-- If there is a current user (someone is logged in, we don't care who), we will render the review form -->
+    <% if(currentUser){ %>
+      <h2>Leave a Review</h2>
+      <!-- Validation Javascript is in the boilerplate for - 'class="mb-3 validated-form" novalidate' -->
+      <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+
+        <!-- starability code gotten from LunarLogic on Github -->
+        <div class="mb-3">
+          <fieldset class="starability-basic">
+            <!-- we set the default value of 'value' to 1 instead of 0, so we do not get an error if there is a 0 rating -->
+            <!-- or, we could do a little more work and write some DOM manipulation to check if any of the radio buttons are selected -->
+            <!-- ... and if not, don't allow the form to be submitted -->
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
+              aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="body">Review Text</label>
+          <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+          <div class="valid-feedback
+          ">
+            Looks good!
+          </div>
+        </div>
+        <button class="btn btn-success">Submit</button>
+      </form>
+      <% } %>
+        <% for (let review of campground.reviews){ %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <!-- starability code gotten from LunarLogic on Github -->
+              <h5 class="card-title">
+                <%= review.author.username %>
+              </h5>
+              <p class="starability-result" data-rating="<%= review.rating %>">
+                <!-- this next line is for accessability to screen readers -->
+                Rated: <%= review.rating %>
+              </p>
+              <p class="card-text">Review: <%= review.body %>
+              </p>
+              <!-- for each one, we are making a separate form -->
+              <!-- Hide the DELETE button if the user is not the author of the review -->
+              <!-- If current user exists (somone is logged in) AND the following is true ... -->
+              <!-- If this one campground's author is the same as the current user's id, then render the delete button -->
+              <% if(currentUser && review.author.equals(currentUser._id)) {%>
+                <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                  method="POST">
+                  <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                <% } %>
+            </div>
+          </div>
+          <% } %>
+  </div>
+  </div>

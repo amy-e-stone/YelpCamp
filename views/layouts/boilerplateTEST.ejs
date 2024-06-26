@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOILERPLATE!!!!!</title>
+</head>
+<body>
+    <!-- If we see BEFORE and AFTER with the content from index.ejs in the middle, then ejs-mate is working -->
+    <!-- See layout('layouts/boilerplate') in index.ejs, this line of code looks for 'body' in the specified path and inserts it -->
+    <!-- Now we can include stylesheets, javascript, navbar, etc and have a common layout -->
+    <!-- For example, if we want a navbar on every page, we only need to include that partial in one place, under layouts in the boilerplate -->
+    <h1>BEFORE</h1>
+    <%- body %>
+    <h1>AFTER</h1>
+    
+</body>
+</html>

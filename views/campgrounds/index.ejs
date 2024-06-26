@@ -1,0 +1,45 @@
+<!-- the following line is the ejs-mate syntax that will pass all of this code to the boilerplate template -->
+<% layout('layouts/boilerplate')%>
+<div id="cluster-map"></div>
+<h1>All Campgrounds</h1>
+<div>
+    <a href="campgrounds/new">Add Campground</a>
+</div>
+<!-- we will put a ul in here and iterate over all of the campgrounds and display the title for each one -->
+<% for (let campground of campgrounds) { %>
+    <div class="card mb-3">
+        <div class="row">
+            <!-- after size M and above, we want this to take up 4 units out of 12 -->
+            <div class="col-md-4">
+                <!-- if there is anything in the images array, we will display the first image,
+                if not, we will display a default from cloudinary -->
+                <% if(campground.images.length) {%>
+                    <img crossorigin="anonymous" class="img-fluid" alt="" src="<%= campground.images[0].url %>">
+                    <% }else {%>
+                        <img crossorigin="anonymous" class="img-fluid" alt=""
+                        src="https://res.cloudinary.com/dfr64tnii/image/upload/v1682353151/YelpCamp/bt9ou2m7q3ka4hyhmxxc.jpg">
+                    <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= campground.title %></h5>
+                    <p class="card-text"><%= campground.description %></p>
+                    <p class="card-text"></p>
+                        <small class="text-secondary"><%= campground.location %></small>
+                    </p>
+                    <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>">View <%= campground.title %></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN%>';
+        // here, we add 'features' because that is how mapbox takes in data (we can see this with their link to the earthquake data that the exaple uses)
+        // here is an object with the attribute 'features' which is equal to all of the campgrounds
+        const campgrounds = {features: <%- JSON.stringify(campgrounds) %>}
+      </script>
+
+    <!-- include the mapbox script -->
+    <script src="/javascripts/clusterMap.js"></script>

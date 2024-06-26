@@ -1,0 +1,18 @@
+<!-- the following line is the ejs-mate syntax that will pass all of this code to the boilerplate template -->
+<% layout('layouts/boilerplate')%>
+    <form action="/campgrounds" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <!-- under name, we are grouping things under campground -->
+            <!-- when the data is sent via POST request to the express app server, everything in the req.body will be stored under campground -->
+            <input type="text" id="title" name="campground[title]">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <!-- under name, we are grouping things under campground -->
+            <!-- when the data is sent via POST request to the express app server, everything in the req.body will be stored under campground -->
+            <input type="text" id="location" name="campground[location]">
+        </div>
+        <button>Add Campground</button>
+    </form>
+    <a href="/campgrounds">All Campgrounds</a>
