@@ -38,7 +38,8 @@ To run this project locally, follow these steps:
    ```bash
    npm install
 4. Set up your environment variables (e.g., create a .env file).
-5. Start the development server:
+5. Add the necessary environment variables (e.g., DB_URL, SESSION_SECRET, API_KEY). You will need to obtain these from the respective services.
+6. Start the development server:
    ```bash
    npm start
 
