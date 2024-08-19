@@ -49,4 +49,4 @@ After installing the project, you can access it locally by opening your web brow
 
 ## Live Demo
 
-Check out the live version of the app [here]([https://your-hosted-app-link.com](https://hidden-basin-58850.herokuapp.com/).
+Check out the live version of the app [here](https://hidden-basin-58850.herokuapp.com).
