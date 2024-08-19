@@ -46,3 +46,7 @@ To run this project locally, follow these steps:
 ## Usage
   
 After installing the project, you can access it locally by opening your web browser and navigating to http://localhost:3000. You can explore the features, create an account, and interact with the application as intended.
+
+## Live Demo
+
+Check out the live version of the app [here]([https://your-hosted-app-link.com](https://hidden-basin-58850.herokuapp.com/).
