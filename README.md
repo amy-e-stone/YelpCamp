@@ -50,3 +50,6 @@ After installing the project, you can access it locally by opening your web brow
 ## Live Demo
 
 Check out the live version of the app [here](https://hidden-basin-58850.herokuapp.com).
+
+## Contributing
+Contributions are welcome! Please fork this repository and submit a pull request with your changes.
