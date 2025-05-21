@@ -1,5 +1,9 @@
 const User = require('../models/user');
 
+// bad language filtering
+const Filter = require('bad-words');
+const filter = new Filter();
+
 module.exports.renderRegister = (req, res) => {
     res.render('users/register');
 }
@@ -10,6 +14,13 @@ module.exports.register = async (req, res, next) => {
     try {
         // destructure what we want from req.body - for testing: res.send(req.body);
         const { email, username, password } = req.body;
+
+        // bad language filtering
+        if (filter.isProfane(username)) {
+            req.flash('error', 'Inappropriate username.');
+            return res.redirect('register');
+        }
+
         // pass email and username into a new user object
         const user = new User({ email, username });
         // pass this new instance of a user and the password through .register method for it to hash the password and store the salt
