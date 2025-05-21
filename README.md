@@ -37,8 +37,15 @@ To run this project locally, follow these steps:
 3. Install dependencies:
    ```bash
    npm install
-4. Set up your environment variables (e.g., create a .env file).
-5. Add the necessary environment variables (e.g., DB_URL, SESSION_SECRET, API_KEY). You will need to obtain these from the respective services.
+4. Create a .env file in the root directory of the project.
+
+5. Add the following environment variables to the file. You’ll need to get the values by signing up for the listed services:
+
+- DB_URL — Your MongoDB connection string (e.g., from MongoDB Atlas)
+- SESSION_SECRET — Any random string for securing user sessions (e.g., mysecretkey123)
+- MAPBOX_TOKEN — API token from Mapbox
+- CLOUDINARY_CLOUD_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET — from your Cloudinary dashboard
+  
 6. Start the development server:
    ```bash
    npm start
